@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paper Reviews</title>
+
+  <!-- Main site-wide CSS (optional) -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Paper Reviews CSS (specific to this page) -->
+  <link rel="stylesheet" href="assets/paper-reviews.css" />
+
+  <!-- (Optional) Google Fonts or Icon Libraries -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-..."
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body>
+  <!-- If you have a sidebar or navigation (optional) -->
+  <aside class="sidebar">
+    <div class="profile-area">
+      <img src="assets/profile.jpg" alt="Profile" class="profile-pic" />
+      <h3 class="profile-name">Rahul Bajaj</h3>
+      <p class="profile-email">thebajajra@gmail.com</p>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li class="active"><a href="reviews.html"><i class="fas fa-book"></i> Paper Reviews</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main content for paper reviews -->
+  <main class="paper-reviews-main">
+    <!-- Header / Top Bar -->
+    <header class="papers-header">
+      <div class="papers-title">
+        <h1>Top Papers</h1>
+        <p>by <span class="author-name">bajajra</span></p>
+      </div>
+<!--      <div class="papers-actions">-->
+<!--        <div class="search-bar">-->
+<!--          <input-->
+<!--            type="text"-->
+<!--            placeholder="Search by arxiv id or title"-->
+<!--            aria-label="Search"-->
+<!--          />-->
+<!--          <button class="search-btn"><i class="fas fa-search"></i></button>-->
+<!--        </div>-->
+<!--        <button class="submit-paper-btn">Submit a paper</button>-->
+<!--        <div class="date-box">-->
+<!--          <span class="month">JAN</span>-->
+<!--          <span class="day">10</span>-->
+<!--        </div>-->
+<!--      </div>-->
+    </header>
+
+    <!-- Paper Grid -->
+    <section class="paper-grid">
+      <!-- Example paper card #1 -->
+      <article class="paper-card">
+        <div class="paper-preview">
+          <img src="assets/sample-paper.png" alt="Paper Preview" />
+        </div>
+        <div class="paper-content">
+          <h2 class="paper-title">
+            The GAN is dead; long live the GAN! A Modern GAN Baseline
+          </h2>
+          <p class="paper-authors">
+            Y. Huang, A. Gokaslan, V. Kuleshov, J. Tompkin
+          </p>
+          <p class="paper-abstract">
+            We provide evidence against this claim and build a modern GAN
+            baseline in a more principled manner...
+          </p>
+          <div class="paper-footer">
+            <div class="paper-stats">
+              <div class="upvotes">
+                <i class="fas fa-caret-up"></i> <span>18</span>
+              </div>
+              <div class="comments">
+                <i class="fas fa-comment"></i> <span>1</span>
+              </div>
+            </div>
+            <div class="paper-submitter">
+              Submitted by <span class="submitter-name">Skylion007</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Example paper card #2 -->
+      <article class="paper-card">
+        <div class="paper-preview">
+          <img src="assets/sample-paper2.png" alt="Paper Preview" />
+        </div>
+        <div class="paper-content">
+          <h2 class="paper-title">
+            An Empirical Study of Autoregressive Pre-training from Videos
+          </h2>
+          <p class="paper-authors">
+            J. Rajeswaran, I. Radosavovic, R. Ravishankar, ...
+          </p>
+          <p class="paper-abstract">
+            We empirically study autoregressive pre-training from videos...
+          </p>
+          <div class="paper-footer">
+            <div class="paper-stats">
+              <div class="upvotes">
+                <i class="fas fa-caret-up"></i> <span>14</span>
+              </div>
+              <div class="comments">
+                <i class="fas fa-comment"></i> <span>2</span>
+              </div>
+            </div>
+            <div class="paper-submitter">
+              Submitted by <span class="submitter-name">brjathu</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <!-- Add more cards as needed -->
+      <article class="paper-card">
+        <div class="paper-preview">
+          <img src="assets/sample-paper2.png" alt="Paper Preview" />
+        </div>
+        <div class="paper-content">
+          <h2 class="paper-title">
+            An Empirical Study of Autoregressive Pre-training from Videos
+          </h2>
+          <p class="paper-authors">
+            J. Rajeswaran, I. Radosavovic, R. Ravishankar, ...
+          </p>
+          <p class="paper-abstract">
+            We empirically study autoregressive pre-training from videos...
+          </p>
+          <div class="paper-footer">
+            <div class="paper-stats">
+              <div class="upvotes">
+                <i class="fas fa-caret-up"></i> <span>14</span>
+              </div>
+              <div class="comments">
+                <i class="fas fa-comment"></i> <span>2</span>
+              </div>
+            </div>
+            <div class="paper-submitter">
+              Submitted by <span class="submitter-name">brjathu</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="paper-card">
+        <div class="paper-preview">
+          <img src="assets/sample-paper2.png" alt="Paper Preview" />
+        </div>
+        <div class="paper-content">
+          <h2 class="paper-title">
+            An Empirical Study of Autoregressive Pre-training from Videos
+          </h2>
+          <p class="paper-authors">
+            J. Rajeswaran, I. Radosavovic, R. Ravishankar, ...
+          </p>
+          <p class="paper-abstract">
+            We empirically study autoregressive pre-training from videos...
+          </p>
+          <div class="paper-footer">
+            <div class="paper-stats">
+              <div class="upvotes">
+                <i class="fas fa-caret-up"></i> <span>14</span>
+              </div>
+              <div class="comments">
+                <i class="fas fa-comment"></i> <span>2</span>
+              </div>
+            </div>
+            <div class="paper-submitter">
+              Submitted by <span class="submitter-name">brjathu</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

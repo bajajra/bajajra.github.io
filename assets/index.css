@@ -1,0 +1,118 @@
+/*
+  index.css
+  - Improves readability and aesthetics of the homepage
+  - Uses a light background with dark "card" tiles
+*/
+
+/* ----- BODY / GENERAL ----- */
+/* If you don't already have these rules in style.css, you can place them here */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #f5f6f8; /* Lighter background */
+  color: #333;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* The main area (beside the sidebar) */
+.home-main {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* ----- HERO SECTION ----- */
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #444; /* Slightly darker text to stand out */
+}
+.hero p {
+  font-size: 1.2rem;
+  color: #777;
+}
+
+/* ----- TILE GRID ----- */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ----- CURVED TILES ----- */
+.curved-tile {
+  background: #1f2733; /* Dark card background */
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  color: #fff; /* White text for contrast against dark background */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.curved-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+.curved-tile h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #fff;
+}
+.tile-subtext {
+  font-size: 0.95rem;
+  color: #ccc; /* slightly lighter than #fff for subtitle */
+  margin-bottom: 1rem;
+}
+
+/* ----- EMBED CONTAINER (YOUTUBE) ----- */
+.tile-embed-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+}
+.tile-embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ----- LINKEDIN LINK EXAMPLE ----- */
+.linkedin-link {
+  color: #00b7ff; /* or LinkedIn-ish color #0a66c2 */
+  text-decoration: none;
+  font-weight: 500;
+}
+.linkedin-link:hover {
+  text-decoration: underline;
+}
+
+/* ----- GITHUB TILE ICON ----- */
+.tile-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  margin-top: 0.5rem;
+}
+.tile-icon-container i {
+  color: #ccc;
+  transition: color 0.2s;
+}
+.tile-icon-container i:hover {
+  color: #fff;
+}
