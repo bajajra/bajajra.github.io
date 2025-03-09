@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Personal Blog - Home</title>
+
+  <!-- Shared CSS for sidebar, etc. -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Improved Index-specific CSS -->
+  <link rel="stylesheet" href="assets/index.css" />
+
+  <!-- Google Font (Poppins) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome (for icons) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-..."
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body>
+  <!-- Common Sidebar -->
+  <aside class="sidebar">
+    <div class="profile-area">
+      <h4 class="profile-header">
+      </h4>
+      <img src="assets/profile.jpg" alt="Profile" class="profile-pic" />
+      <h3 class="profile-name">Rahul Bajaj</h3>
+      <p class="profile-email">thebajajra@gmail.com</p>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li class="active">
+          <a href="index.html">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li>
+          <a href="reviews.html">
+            <i class="fas fa-book"></i> Paper Reviews
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="home-main">
+    <!-- Hero / Intro Section -->
+    <section class="hero">
+      <h1>Welcome to My Personal Blog</h1>
+      <p>Data Science, Technology, and More!</p>
+    </section>
+
+    <!-- Curved Tile Grid -->
+    <section class="tile-grid">
+      <!-- Tile 1: YouTube Embed -->
+      <div class="curved-tile">
+        <h2>YouTube</h2>
+        <p class="tile-subtext">Check out my latest video!</p>
+        <div class="tile-embed-container">
+          <iframe
+            src="https://www.youtube.com/embed/I2sN1RmON4I"
+            title="Machine Masquerade"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Tile 2: LinkedIn -->
+      <div class="curved-tile">
+  <h2>LinkedIn</h2>
+  <p class="tile-subtext">Connect with me professionally.</p>
+  <!-- Container that centers the icon -->
+  <div class="tile-icon-container">
+    <a
+      href="https://in.linkedin.com/in/bajajra"
+      target="_blank"
+      aria-label="LinkedIn"
+      class="linkedin-link"
+    >
+      <i class="fab fa-linkedin-in fa-3x"></i>
+    </a>
+  </div>
+</div>
+
+
+      <!-- Tile 3: GitHub -->
+      <div class="curved-tile">
+        <h2>GitHub</h2>
+        <p class="tile-subtext">Explore my code repositories @bajajra</p>
+        <div class="tile-icon-container">
+          <a href="https://github.com/bajajra" target="_blank" aria-label="GitHub">
+            <i class="fab fa-github fa-3x"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Tile 4: Instagram -->
+      <div class="curved-tile">
+        <h2>Instagram</h2>
+        <p class="tile-subtext">Follow me for more technical content</p>
+        <div class="tile-icon-container">
+          <a
+            href="https://www.instagram.com/bajajra.ai/"
+            target="_blank"
+            aria-label="Instagram"
+          >
+            <i class="fab fa-instagram fa-3x"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Tile 5: Google Scholar (NEW) -->
+      <div class="curved-tile">
+        <h2>Google Scholar</h2>
+        <p class="tile-subtext">Check out my publications.</p>
+        <div class="tile-icon-container">
+          <!--
+            1) Using the "Google" icon as a stand-in for Scholar:
+               <i class="fab fa-google fa-3x"></i>
+
+            2) If you have a custom icon or image, embed or link it here instead.
+          -->
+          <a
+            href="https://scholar.google.com/citations?user=3Qq3uooAAAAJ&hl=en"
+            target="_blank"
+            aria-label="Google Scholar"
+          >
+            <i class="fab fa-google fa-3x"></i>
+          </a>
+        </div>
+      </div>
+        <div class="curved-tile">
+        <h2>Medium</h2>
+        <p class="tile-subtext">Read my latest articles.</p>
+        <div class="tile-icon-container">
+          <!-- Replace "@YourMediumHandle" with your actual Medium username -->
+          <a
+            href="https://medium.com/@wmgtsbajajra"
+            target="_blank"
+            aria-label="Medium Blog"
+          >
+            <i class="fab fa-medium fa-3x"></i>
+            <!-- or 'fa-medium-m' if you prefer the alternative logo -->
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
