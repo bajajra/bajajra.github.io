@@ -2,6 +2,14 @@
 
 Group Relative Policy Optimization (GRPO) is a lightweight twist on PPO designed to sharpen an LLM’s reasoning without the heavy critic network classic RL methods rely on. Instead, the model answers each prompt k times, forming a group of candidate outputs. Every answer is scored (for example, by a reward model or a task-specific metric). GRPO treats the group-mean score as the baseline, so the advantage for each answer is simply its score minus that mean—eliminating the need to learn a separate value function and cutting memory and compute costs.
 
+```{figure} images/grpo_process.png
+:name: grpo_process
+:width: 70%
+:align: center
+
+Training Process
+```
+
 The policy is then nudged toward higher-than-average answers using a clipped PPO-style ratio to keep updates stable and a KL penalty to stop the new policy from drifting too far from the reference model. Because it works entirely with relative scores inside each mini-batch, GRPO stays sample-efficient, scales to very large models, and has proven effective in real projects, delivering strong gains in mathematical reasoning while using fewer GPUs.
 
 ---
