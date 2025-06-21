@@ -1,0 +1,818 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GRPO: Huggingface Implementation &#8212; machinamasquerade</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'grpo_implement';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Group Relative Policy Optimisation (GRPO): Overview" href="grpo_intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="machinamasquerade - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="machinamasquerade - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Machina Masquerade
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning for LLMs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rl_llm_intro.html">RL Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rl_llm_reward_models.html">Reward Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grpo_intro.html">Group Relative Policy Optimisation (GRPO): Overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">GRPO: Huggingface Implementation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bajajra/bajajra.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bajajra/bajajra.github.io/issues/new?title=Issue%20on%20page%20%2Fgrpo_implement.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/grpo_implement.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>GRPO: Huggingface Implementation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grpo-in-a-nutshell">GRPO in a Nutshell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-dependencies">Environment &amp; Dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preparation">Dataset Preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-reward-function">Designing a Reward Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring-grpotrainer">Wiring <code class="docutils literal notranslate"><span class="pre">GRPOTrainer</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-configuration-scaling">Advanced Configuration &amp; Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora-4bit-quant">LoRA + 4‑bit Quant</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multigpu-fsdp">Multi‑GPU &amp; FSDP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-hyperparameters">Choosing Hyper‑parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#track">Track:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-learnings">Practical Learnings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlating-theory-with-code">Correlating Theory with Code</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="grpo-huggingface-implementation">
+<h1>GRPO: Huggingface Implementation<a class="headerlink" href="#grpo-huggingface-implementation" title="Link to this heading">#</a></h1>
+<section id="grpo-in-a-nutshell">
+<h2>GRPO in a Nutshell<a class="headerlink" href="#grpo-in-a-nutshell" title="Link to this heading">#</a></h2>
+<p>GRPO maximises the <em>advantage</em> of each sampled completion without a learned critic.<br />
+For a prompt (x) we draw a <strong>group</strong> of (G) completions <span class="math notranslate nohighlight">\(\{y_i\}\)</span>, compute task reward <span class="math notranslate nohighlight">\(r_i\)</span> for each, and <em>z-score</em> normalise</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\tilde r_i &amp;= \frac{r_i - \mu_r}{\sigma_r}, \\[6pt]
+\mu_r      &amp;= \frac{1}{G}\sum_{j=1}^{G} r_j, \\[6pt]
+\sigma_r   &amp;= \sqrt{\frac{1}{G}\sum_{j=1}^{G} \bigl(r_j - \mu_r\bigr)^2}.
+\end{aligned}
+\end{split}\]</div>
+<p>The objective is</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(\theta)=
+\sum_{i=1}^{G} \min\!\Bigl(
+r_{i,t}(\theta)\,\tilde r_i,\,
+\operatorname{clip}\bigl(r_{i,t}(\theta),\,1-\varepsilon,\,1+\varepsilon\bigr)\,\tilde r_i
+\Bigr)
+-\beta\,D_{\mathrm{KL}}\bigl(\pi_{\theta}\,\Vert\,\pi_{\text{ref}}\bigr).
+\]</div>
+<p>where<br />
+$<span class="math notranslate nohighlight">\(
+r_{i,t}(\theta)=\frac{\pi_{\theta}(y_i \mid x)}{\pi_{\text{ref}}(y_i \mid x)}.
+\)</span>$
+Because there is <strong>no critic head</strong>, you save 30–40 % GPU memory and can scale to larger models.</p>
+</section>
+<hr class="docutils" />
+<section id="environment-dependencies">
+<h2>Environment &amp; Dependencies<a class="headerlink" href="#environment-dependencies" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Tip :</strong> use uv for package and environment management</p>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install uv</span>
+curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+
+<span class="c1">#create and activate virtualenv</span>
+uv<span class="w"> </span>venv<span class="w"> </span>--seed<span class="w"> </span>--python<span class="o">==</span><span class="m">3</span>.12
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># core libraries</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;trl[vllm]==0.16.1&quot;</span><span class="w"> </span>transformers<span class="w"> </span>datasets<span class="w"> </span>accelerate<span class="w"> </span>peft<span class="w"> </span>bitsandbytes<span class="w"> </span>hf-tranfer
+
+<span class="c1"># (optional) Flash‑Attention for extra speed</span>
+pip<span class="w"> </span>install<span class="w"> </span>flash-attn<span class="o">==</span><span class="m">2</span>.*
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Tip :</strong> install Flash‑Attention <em>before</em> Transformers to avoid rebuilding kernels.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="dataset-preparation">
+<h2>Dataset Preparation<a class="headerlink" href="#dataset-preparation" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">GRPOTrainer</span></code> expects an <strong>untokenised</strong> <code class="docutils literal notranslate"><span class="pre">datasets.Dataset</span></code> with two mandatory columns:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prompt</span></code></p></td>
+<td><p>str</p></td>
+<td><p>user / system input</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">response</span></code></p></td>
+<td><p>str</p></td>
+<td><p>reference answer (optional)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Any extra fields (e.g. <code class="docutils literal notranslate"><span class="pre">ground_truth</span></code>, <code class="docutils literal notranslate"><span class="pre">score</span></code>) are accessible inside a custom reward function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;trl-lib/tldr&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+<span class="c1"># keep first 50 000 rows for a demo run</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">50_000</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="designing-a-reward-function">
+<h2>Designing a Reward Function<a class="headerlink" href="#designing-a-reward-function" title="Link to this heading">#</a></h2>
+<p>A <strong>reward callback</strong> receives a batch of <code class="docutils literal notranslate"><span class="pre">{prompt,</span> <span class="pre">completion,</span> <span class="pre">…}</span></code> dictionaries and returns an array of floats.<br />
+Below is a minimal example that penalises long outputs and rewards well‑formed sentences:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nltk.tokenize</span><span class="w"> </span><span class="kn">import</span> <span class="n">word_tokenize</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">simple_reward</span><span class="p">(</span><span class="n">samples</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">:</span>
+        <span class="n">length_penalty</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.001</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;completion&quot;</span><span class="p">]))</span> <span class="o">-</span> <span class="mi">512</span><span class="p">)</span>
+        <span class="n">end_bonus</span>      <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;completion&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">length_penalty</span> <span class="o">+</span> <span class="n">end_bonus</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Normalise</strong> raw rewards to roughly <span class="math notranslate nohighlight">\(\\([-5,5]\\)\)</span> <strong>before</strong> the z‑score step; extreme values slow convergence.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="wiring-grpotrainer">
+<h2>Wiring <code class="docutils literal notranslate"><span class="pre">GRPOTrainer</span></code><a class="headerlink" href="#wiring-grpotrainer" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">trl</span><span class="w"> </span><span class="kn">import</span> <span class="n">GRPOConfig</span><span class="p">,</span> <span class="n">GRPOTrainer</span>
+
+<span class="n">model_name</span> <span class="o">=</span> <span class="s2">&quot;Qwen/Qwen2.5-3B-Instruct&quot;</span>
+
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">use_fast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="n">model_name</span><span class="p">,</span>
+    <span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>      <span class="c1"># quantised weights</span>
+    <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>      <span class="c1"># spread over available GPUs</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">GRPOConfig</span><span class="p">(</span>
+    <span class="n">group_size</span>                <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>      <span class="c1"># completions per prompt</span>
+    <span class="n">beta</span>                      <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>   <span class="c1"># KL‑penalty factor</span>
+    <span class="n">learning_rate</span>             <span class="o">=</span> <span class="mf">5e-6</span><span class="p">,</span>
+    <span class="n">mini_batch_size</span>           <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">batch_size</span>                <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+    <span class="n">target_kl</span>                 <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>    <span class="c1"># auto‑tune beta</span>
+    <span class="n">gradient_accumulation_steps</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">reward_fn</span>                 <span class="o">=</span> <span class="n">simple_reward</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">GRPOTrainer</span><span class="p">(</span>
+    <span class="n">model</span>         <span class="o">=</span> <span class="n">model</span><span class="p">,</span>
+    <span class="n">ref_model</span>     <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>       <span class="c1"># frozen copy instantiated internally</span>
+    <span class="n">args</span>          <span class="o">=</span> <span class="n">config</span><span class="p">,</span>
+    <span class="n">tokenizer</span>     <span class="o">=</span> <span class="n">tokenizer</span><span class="p">,</span>
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">ds</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ref_model=None</span></code></strong> duplicates the initial weights internally—saves RAM.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group_size = 4–8</span></code> is a sweet spot: lower variance without exploding memory.</p></li>
+<li><p>If <strong>actual</strong> KL rises above <code class="docutils literal notranslate"><span class="pre">target_kl</span></code>, the trainer automatically scales <code class="docutils literal notranslate"><span class="pre">beta</span></code>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="advanced-configuration-scaling">
+<h2>Advanced Configuration &amp; Scaling<a class="headerlink" href="#advanced-configuration-scaling" title="Link to this heading">#</a></h2>
+<section id="lora-4bit-quant">
+<h3>LoRA + 4‑bit Quant<a class="headerlink" href="#lora-4bit-quant" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">peft</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoraConfig</span><span class="p">,</span> <span class="n">get_peft_model</span>
+
+<span class="n">lora_cfg</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">lora_alpha</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">target_modules</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;q_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;v_proj&quot;</span><span class="p">],</span>
+    <span class="n">lora_dropout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;CAUSAL_LM&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_peft_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">lora_cfg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Reduces a 7B model from ~28 GB to &lt; 9 GB VRAM.</p>
+</section>
+<hr class="docutils" />
+<section id="multigpu-fsdp">
+<h3>Multi‑GPU &amp; FSDP<a class="headerlink" href="#multigpu-fsdp" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CUDA_AVAILABLE_DEVICES</span><span class="o">=</span>&lt;&gt;<span class="w"> </span>accelerate<span class="w"> </span>launch<span class="w"> </span>--num_processes<span class="w"> </span>&lt;gpu_devices&gt;<span class="w"> </span>--mixed_precision<span class="w"> </span>fp16<span class="w"> </span>grpo_run.py
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="choosing-hyperparameters">
+<h2>Choosing Hyper‑parameters<a class="headerlink" href="#choosing-hyperparameters" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hyper‑parameter</p></th>
+<th class="head"><p>Typical Range</p></th>
+<th class="head"><p>Intuition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">group_size</span></code></p></td>
+<td><p>4 – 8</p></td>
+<td><p>bigger → lower variance; but O(G) RAM</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">beta</span></code></p></td>
+<td><p>0.01 – 0.1</p></td>
+<td><p>KL penalty strength; auto‑tuned if <code class="docutils literal notranslate"><span class="pre">target_kl</span></code> set</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code></p></td>
+<td><p>2e‑6 – 1e‑5</p></td>
+<td><p>larger models usually need a smaller LR</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mini_batch_size</span></code></p></td>
+<td><p>1 – 16</p></td>
+<td><p>memory‑bound; raise if you have room</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ppo_epochs</span></code></p></td>
+<td><p>1 – 4</p></td>
+<td><p>more passes if data is expensive</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p>Empirically, <code class="docutils literal notranslate"><span class="pre">beta = 0.05</span></code> and <code class="docutils literal notranslate"><span class="pre">group_size = 6</span></code> maximise reasoning accuracy for 7B models.</p>
+</div></blockquote>
+<section id="track">
+<h3>Track:<a class="headerlink" href="#track" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>KL divergence</strong> per step – rising trend ⇒ increase <code class="docutils literal notranslate"><span class="pre">beta</span></code>.</p></li>
+<li><p><strong>Reward mean / std</strong> – should hover around 0 after z‑score normalisation.</p></li>
+<li><p><strong>Tokens/sec</strong> – sudden drops often indicate device mapping issues.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-learnings">
+<h2>Practical Learnings<a class="headerlink" href="#practical-learnings" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Issue</p></th>
+<th class="head"><p>Symptom</p></th>
+<th class="head"><p>Remedy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Trainer <strong>hangs</strong></p></td>
+<td><p>process never exits</p></td>
+<td><p>load without <code class="docutils literal notranslate"><span class="pre">device_map='auto'</span></code> or upgrade <code class="docutils literal notranslate"><span class="pre">accelerate</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Slow throughput</strong></p></td>
+<td><p>&lt; 0.2 it/s on small dataset</p></td>
+<td><p>increase <code class="docutils literal notranslate"><span class="pre">mini_batch_size</span></code>; ensure <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> is not disabled</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>OOM crash</strong></p></td>
+<td><p>during forward pass</p></td>
+<td><p>enable 4‑bit, LoRA; reduce <code class="docutils literal notranslate"><span class="pre">group_size</span></code>; use FSDP</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Diverging KL</strong></p></td>
+<td><p>KL &gt; 1.0 quickly</p></td>
+<td><p>raise <code class="docutils literal notranslate"><span class="pre">beta</span></code>, lower LR, narrow <code class="docutils literal notranslate"><span class="pre">clip_range</span></code>, inspect reward scale</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Flat reward signal</strong></p></td>
+<td><p>reward variance &lt; 0.5</p></td>
+<td><p>enlarge <code class="docutils literal notranslate"><span class="pre">group_size</span></code> or switch to pairwise relative rewards</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p><strong>Curriculum</strong>: start with <code class="docutils literal notranslate"><span class="pre">group_size = 8</span></code> then decay to 4 – mimics critic annealing.<br />
+<strong>Reward‑model distillation</strong>: freeze an outperforming checkpoint as the new reference to stabilise KL drift on long runs.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="correlating-theory-with-code">
+<h2>Correlating Theory with Code<a class="headerlink" href="#correlating-theory-with-code" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">group_size</span></code> in the config <strong>is</strong> <span class="math notranslate nohighlight">\(\\(G\\)\)</span> in the objective.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">beta</span></code> multiplies the KL term.</p></li>
+<li><p>Your <code class="docutils literal notranslate"><span class="pre">reward_fn</span></code> provides <span class="math notranslate nohighlight">\(\\(r_i\\)\)</span>.</p></li>
+<li><p>TRL normalises rewards internally:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">advantage</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">r</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>matching the <span class="math notranslate nohighlight">\(\\(\\tilde r_i\\)\)</span> definition.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">min</span></code> + <code class="docutils literal notranslate"><span class="pre">clip</span></code> logic is executed in a fused CUDA kernel for speed.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="grpo_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Group Relative Policy Optimisation (GRPO): Overview</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grpo-in-a-nutshell">GRPO in a Nutshell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-dependencies">Environment &amp; Dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preparation">Dataset Preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-reward-function">Designing a Reward Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring-grpotrainer">Wiring <code class="docutils literal notranslate"><span class="pre">GRPOTrainer</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-configuration-scaling">Advanced Configuration &amp; Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora-4bit-quant">LoRA + 4‑bit Quant</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multigpu-fsdp">Multi‑GPU &amp; FSDP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-hyperparameters">Choosing Hyper‑parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#track">Track:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-learnings">Practical Learnings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlating-theory-with-code">Correlating Theory with Code</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rahul Bajaj
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
