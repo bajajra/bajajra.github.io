@@ -389,8 +389,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-in-prose">Algorithm in prose</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-example-arithmetic">Toy Example (Arithmetic)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ppo-v-s-grpo">PPO v/s GRPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-example-arithmetic">Toy Example (Arithmetic)</a></li>
 </ul>
             </nav>
         </div>
@@ -471,6 +471,13 @@ L_{\text{GRPO}}(\theta)
     &amp;\quad - \beta\,D_{\mathrm{KL}}\!\bigl(\pi_{\theta}\;\|\;\pi_{\text{ref}}\bigr).
 \end{aligned}
 \end{split}\]</div>
+<figure class="align-center" id="ppo-grpo">
+<a class="reference internal image-reference" href="_images/ppo_grpo.png"><img alt="_images/ppo_grpo.png" src="_images/ppo_grpo.png" style="width: 70%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">PPO v/s GRPO</span><a class="headerlink" href="#ppo-grpo" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="algorithm-in-prose">
 <h3>Algorithm in prose<a class="headerlink" href="#algorithm-in-prose" title="Link to this heading">#</a></h3>
@@ -483,6 +490,41 @@ L_{\text{GRPO}}(\theta)
 </ol>
 <p>No baseline network, no TD‑error, no bootstrapping—just statistics and a clip‑style surrogate.</p>
 </section>
+</section>
+<section id="ppo-v-s-grpo">
+<h2>PPO v/s GRPO<a class="headerlink" href="#ppo-v-s-grpo" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>PPO</p></th>
+<th class="head"><p><strong>GRPO</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Needs critic?</p></td>
+<td><p><strong>Yes</strong> (big)</p></td>
+<td><p><strong>No</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Sample efficiency</p></td>
+<td><p>Good</p></td>
+<td><p>Slightly lower (uses groups)</p></td>
+</tr>
+<tr class="row-even"><td><p>Memory</p></td>
+<td><p>2 × policy</p></td>
+<td><p>1 × policy</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hyper‑parameters</p></td>
+<td><p>ε, β &amp; value‑loss mix</p></td>
+<td><p>ε, β only</p></td>
+</tr>
+<tr class="row-even"><td><p>Alignment signal</p></td>
+<td><p>Scalar RM</p></td>
+<td><p>Same</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Empirically, GRPO yields <strong>fewer degenerate updates</strong> and <em>better long‑horizon reasoning</em> because advantages are tied to complete solutions, not per‑token predicted values.</p>
 </section>
 <hr class="docutils" />
 <section id="toy-example-arithmetic">
@@ -526,42 +568,6 @@ Policy samples <em>G</em> = 4 answers:</p>
 \]</div>
 <p>Every token of answer 1 gets positive advantage, others negative.<br />
 Gradient ascent on the GRPO objective quickly pushes the logits toward “2 0 4” without ever computing a value function.</p>
-</section>
-<hr class="docutils" />
-<section id="ppo-v-s-grpo">
-<h2>PPO v/s GRPO<a class="headerlink" href="#ppo-v-s-grpo" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>PPO</p></th>
-<th class="head"><p><strong>GRPO</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Needs critic?</p></td>
-<td><p><strong>Yes</strong> (big)</p></td>
-<td><p><strong>No</strong></p></td>
-</tr>
-<tr class="row-odd"><td><p>Sample efficiency</p></td>
-<td><p>Good</p></td>
-<td><p>Slightly lower (uses groups)</p></td>
-</tr>
-<tr class="row-even"><td><p>Memory</p></td>
-<td><p>2 × policy</p></td>
-<td><p>1 × policy</p></td>
-</tr>
-<tr class="row-odd"><td><p>Hyper‑parameters</p></td>
-<td><p>ε, β &amp; value‑loss mix</p></td>
-<td><p>ε, β only</p></td>
-</tr>
-<tr class="row-even"><td><p>Alignment signal</p></td>
-<td><p>Scalar RM</p></td>
-<td><p>Same</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Empirically, GRPO yields <strong>fewer degenerate updates</strong> and <em>better long‑horizon reasoning</em> because advantages are tied to complete solutions, not per‑token predicted values.</p>
 <hr class="docutils" />
 </section>
 </section>
@@ -637,8 +643,8 @@ Gradient ascent on the GRPO objective quickly pushes the logits toward “2 0�
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-in-prose">Algorithm in prose</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-example-arithmetic">Toy Example (Arithmetic)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ppo-v-s-grpo">PPO v/s GRPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-example-arithmetic">Toy Example (Arithmetic)</a></li>
 </ul>
   </nav></div>
 

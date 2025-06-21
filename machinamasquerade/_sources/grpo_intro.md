@@ -72,6 +72,14 @@ L_{\text{GRPO}}(\theta)
 \end{aligned}
 $$
 
+```{figure} images/ppo_grpo.png
+:name: ppo_grpo
+:width: 70%
+:align: center
+
+PPO v/s GRPO
+```
+
 ### Algorithm in prose
 
 1. **Sample** *G* answers from the current policy for each prompt.  
@@ -81,6 +89,22 @@ $$
 5. **(Optional)** after *K* iterations, refresh the reference model and replay buffer for stability.
 
 No baseline network, no TD‑error, no bootstrapping—just statistics and a clip‑style surrogate.
+
+## PPO v/s GRPO
+
+| Property | PPO | **GRPO** |
+|----------|-----|----------|
+| Needs critic? | **Yes** (big) | **No** |
+| Sample efficiency | Good | Slightly lower (uses groups) |
+| Memory | 2 × policy | 1 × policy |
+| Hyper‑parameters | ε, β & value‑loss mix | ε, β only |
+| Alignment signal | Scalar RM | Same |
+
+Empirically, GRPO yields **fewer degenerate updates** and *better long‑horizon reasoning* because advantages are tied to complete solutions, not per‑token predicted values.
+
+
+
+
 
 ---
 
@@ -108,20 +132,6 @@ $$
 
 Every token of answer 1 gets positive advantage, others negative.  
 Gradient ascent on the GRPO objective quickly pushes the logits toward “2 0 4” without ever computing a value function.
-
----
-
-## PPO v/s GRPO
-
-| Property | PPO | **GRPO** |
-|----------|-----|----------|
-| Needs critic? | **Yes** (big) | **No** |
-| Sample efficiency | Good | Slightly lower (uses groups) |
-| Memory | 2 × policy | 1 × policy |
-| Hyper‑parameters | ε, β & value‑loss mix | ε, β only |
-| Alignment signal | Scalar RM | Same |
-
-Empirically, GRPO yields **fewer degenerate updates** and *better long‑horizon reasoning* because advantages are tied to complete solutions, not per‑token predicted values.
 
 ---
 
