@@ -6,6 +6,8 @@ Dive deep into **Software Engineering**, **Artificial Intelligence**, and **ML E
 - Share expert insights  
 - Guide you through cutting-edge advancements shaping the future
 
+Author: Rahul Bajaj [https://bajajra.github.io]
+
 <script src="https://apis.google.com/js/platform.js"></script>
 
 <div class="g-ytsubscribe"
