@@ -19,6 +19,7 @@ Author: Rahul Bajaj [https://bajajra.github.io]
 _Subscribe to the YouTube channel_ ⬆
 
 ---
+
 ### Courses
 
 ```{tableofcontents}
