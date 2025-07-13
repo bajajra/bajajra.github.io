@@ -4,7 +4,7 @@ Dive deep into **Software Engineering**, **Artificial Intelligence**, and **ML E
 
 - Demystify complex concepts  
 - Share expert insights  
-- Guide you through cutting-edge advancements shaping the future  
+  - Guide you through cutting-edge advancements shaping the future
 
 <script src="https://apis.google.com/js/platform.js"></script>
 
