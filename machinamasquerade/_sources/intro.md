@@ -1,9 +1,5 @@
 # Welcome to Machina Masquerade
 
-<div align="right">  
-  ✍️ **Author:** [Rahul Bajaj](https://bajajra.github.io)  
-</div>
-
 Dive deep into **Software Engineering**, **Artificial Intelligence**, and **ML Engineering** as we:
 
 - Demystify complex concepts  
