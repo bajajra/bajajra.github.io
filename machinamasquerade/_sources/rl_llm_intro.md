@@ -133,3 +133,5 @@ Optimization methods such as policy gradient techniques can be applied to adjust
 
 
 [//]: # (*End of Chapter*)
+
+![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fbajajra.github.io%2Fmachinamasquerade%2Frl_llm_intro.html&label=Visitors&icon=clipboard-data&color=%23ab296a&message=&style=for-the-badge&tz=UTC)
