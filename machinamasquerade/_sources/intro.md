@@ -25,4 +25,4 @@ _Subscribe to the YouTube channel_ ⬆
 ```{tableofcontents}
 ```
 
-![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fbajajra.github.io%2Fmachinamasquerade&label=Visitors&icon=clipboard-data&color=%23ab296a&message=&style=for-the-badge&tz=UTC)
+![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fbajajra.github.io%2Fmachinamasquerade&label=Visitors&icon=clipboard-data&color=%23D70040&message=&style=for-the-badge&tz=UTC)
