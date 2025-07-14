@@ -7,7 +7,6 @@ Dive deep into **Software Engineering**, **Artificial Intelligence**, and **ML E
 - Guide you through cutting-edge advancements shaping the future
 
 Author: [Rahul Bajaj](https://bajajra.github.io)
-![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fbajajra.github.io%2Fmachinamasquerade&label=Visitors&icon=clipboard-data&color=%23ab296a&message=&style=for-the-badge&tz=UTC)
 
 <script src="https://apis.google.com/js/platform.js"></script>
 
@@ -25,3 +24,5 @@ _Subscribe to the YouTube channel_ ⬆
 
 ```{tableofcontents}
 ```
+
+![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fbajajra.github.io%2Fmachinamasquerade&label=Visitors&icon=clipboard-data&color=%23ab296a&message=&style=for-the-badge&tz=UTC)
