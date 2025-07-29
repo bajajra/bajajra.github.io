@@ -154,4 +154,6 @@ if __name__ == "__main__":
     trainer.train()
 ```
 
----
+[//]: # (*End of Chapter*)
+
+![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fbajajra.github.io%2Fmachinamasquerade%2Fgspo.html&label=Visitors&icon=clipboard-data&color=%23D70040&message=&style=for-the-badge&tz=UTC)
