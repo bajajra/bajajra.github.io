@@ -8,18 +8,18 @@ GSPO, introduced by Qwen team at Alibaba. upgrades reward‑aligned RL by shifti
 
 Compute the log‑probability of the whole answer under the new and old policies, normalise by length, exponentiate, and clip **once**:
 $$
-[
-  s_i(\theta)
+\[
+s_i(\theta)
   \;=\;
-  \exp\!\left(
-    \frac{
+  \exp\!\Biggl[
+    \frac{%
       \log \pi_{\theta}\!\bigl(y_i \mid x\bigr)\;-\;
-      \log \pi_{\theta_{\text{old}}}\!\bigl(y_i \mid x\bigr)
+      \log \pi_{\theta_{\text{old}}}\!\bigl(y_i \mid x\bigr)%
     }{%
-      \lvert y_i\rvert
+      \lvert y_i\rvert%
     }
-  \right)
-]
+  \Biggr]
+\]
 $$
 All tokens in that answer now share the same weight.  The variance term that scaled with sequence length disappears.
 
