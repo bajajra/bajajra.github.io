@@ -1,0 +1,731 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GSPO: Group Sequence Policy Optimization &#8212; machinamasquerade</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gspo';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Context Protocol (MCP): the USB‑C of AI Context" href="mcp_intro.html" />
+    <link rel="prev" title="GRPO: Huggingface Implementation" href="grpo_implement.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="machinamasquerade - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="machinamasquerade - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Machina Masquerade
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning for LLMs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rl_llm_intro.html">RL Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rl_llm_reward_models.html">Reward Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grpo_intro.html">Group Relative Policy Optimisation (GRPO): Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grpo_implement.html">GRPO: Huggingface Implementation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">GSPO: Group Sequence Policy Optimization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Agentic AI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="mcp_intro.html">Model Context Protocol (MCP): the <em>USB‑C</em> of AI Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcp_implement.html">MCP: Implementation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bajajra/bajajra.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bajajra/bajajra.github.io/issues/new?title=Issue%20on%20page%20%2Fgspo.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/gspo.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>GSPO: Group Sequence Policy Optimization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-ppo-to-grpo-what-broke">From PPO to GRPO : what broke?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gspo-v-s-grpo">GSPO v/s GRPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-skeleton">PyTorch skeleton</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-highlights-and-knobs">Empirical Highlights and Knobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cases-where-it-might-not-help">Cases where it might not help</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hugging-face-trl-quickstart-gspo">Hugging Face TRL Quick‑start (GSPO)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gspo-group-sequence-policy-optimization">
+<h1>GSPO: Group Sequence Policy Optimization<a class="headerlink" href="#gspo-group-sequence-policy-optimization" title="Link to this heading">#</a></h1>
+<p>GSPO, introduced by Qwen team at Alibaba. upgrades reward‑aligned RL by shifting the optimisation unit from individual <strong>tokens</strong> to whole <strong>sequences</strong>.  By matching the way we <strong>reward</strong> (sequence‑level judgement) with the way we <strong>update</strong> (sequence‑level gradients), GSPO eliminates length‑dependent variance, trains faster, and is dramatically more stable especially for Mixture‑of‑Experts language models.</p>
+<blockquote>
+<div><p><em>Use exactly <strong>one</strong> importance‑sampling ratio per answer.</em></p>
+</div></blockquote>
+<p>Compute the log‑probability of the whole answer under the new and old policies, normalise by length, exponentiate, and clip <strong>once</strong>:
+$<span class="math notranslate nohighlight">\(
+[
+  s_i(\theta)
+  \;=\;
+  \exp\!\left(
+    \frac{
+      \log \pi_{\theta}\!\bigl(y_i \mid x\bigr)\;-\;
+      \log \pi_{\theta_{\text{old}}}\!\bigl(y_i \mid x\bigr)
+    }{%
+      \lvert y_i\rvert
+    }
+  \right)
+]
+\)</span>$
+All tokens in that answer now share the same weight.  The variance term that scaled with sequence length disappears.</p>
+<hr class="docutils" />
+<section id="from-ppo-to-grpo-what-broke">
+<h2>From PPO to GRPO : what broke?<a class="headerlink" href="#from-ppo-to-grpo-what-broke" title="Link to this heading">#</a></h2>
+<p><strong>Proximal Policy Optimization (PPO)</strong> is still the work‑horse of RLHF, but it needs an auxiliary value head that doubles memory and often diverges on long texts.</p>
+<p><strong>Group Relative Policy Optimization (GRPO)</strong> removes the value head by sampling <em>G</em> responses for the same prompt, ranking them, and treating the z‑scored reward as an <em>advantage</em>.<br />
+The catch: GRPO applies an importance‑sampling ratio <strong>per token</strong>.  On a thousand‑token answer, you multiply a thousand noisy numbers due to which variance grows with length, and gradients become unstable.  Sparse MoE models are particularly vulnerable: tiny token‑level swings change expert routing and can collapse the network.</p>
+</section>
+<hr class="docutils" />
+<section id="gspo-v-s-grpo">
+<h2>GSPO v/s GRPO<a class="headerlink" href="#gspo-v-s-grpo" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pain‑point in GRPO</p></th>
+<th class="head"><p>GSPO’s fix</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reward is per <strong>sequence</strong> but gradient per <strong>token</strong></p></td>
+<td><p>Aligns units: both are sequence‑level</p></td>
+</tr>
+<tr class="row-odd"><td><p>Variance grows linearly with length</p></td>
+<td><p>Single ratio ⇒ variance ≈ constant</p></td>
+</tr>
+<tr class="row-even"><td><p>MoE “expert flipping” under noise</p></td>
+<td><p>Token noise is averaged away</p></td>
+</tr>
+<tr class="row-odd"><td><p>Need for routing‑replay caches</p></td>
+<td><p>No longer required</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="algorithm">
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Roll‑out:</strong> for each prompt, sample <em>G</em> answers with a frozen policy.</p></li>
+<li><p><strong>Reward:</strong> score each answer (human or model).</p></li>
+<li><p><strong>Advantage:</strong> z‑score within the group.</p></li>
+<li><p><strong>Ratio:</strong> compute sequence‑level importance weight.</p></li>
+<li><p><strong>Clip:</strong> apply a single clip range (ε≈0.2–0.5).</p></li>
+<li><p><strong>Back‑prop:</strong> every token gets the same scalar weight.</p></li>
+<li><p><strong>Sync:</strong> periodically update the frozen policy.</p></li>
+</ol>
+<section id="pytorch-skeleton">
+<h3>PyTorch skeleton<a class="headerlink" href="#pytorch-skeleton" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gspo_step</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">old_model</span><span class="p">,</span> <span class="n">prompts</span><span class="p">,</span> <span class="n">responses</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span>
+              <span class="n">clip_eps</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    model      : current policy (nn.Module)</span>
+<span class="sd">    old_model  : frozen policy used for roll-outs</span>
+<span class="sd">    prompts    : list[str]  (N*G)</span>
+<span class="sd">    responses  : list[str]</span>
+<span class="sd">    rewards    : tensor(N*G)  scalar reward</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># reshape rewards to (N, G)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prompts</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span>   <span class="c1"># assume G=4 for simplicity here</span>
+    <span class="n">rewards</span> <span class="o">=</span> <span class="n">rewards</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># group‑normalised advantages</span>
+    <span class="n">mu</span>  <span class="o">=</span> <span class="n">rewards</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">rewards</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">clamp_min</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">adv</span> <span class="o">=</span> <span class="p">((</span><span class="n">rewards</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">std</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># sequence log‑prob under both policies</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">lp_old</span> <span class="o">=</span> <span class="n">old_model</span><span class="o">.</span><span class="n">loglikelihood</span><span class="p">(</span><span class="n">prompts</span><span class="p">,</span> <span class="n">responses</span><span class="p">)</span>  <span class="c1"># (N*G,)</span>
+    <span class="n">lp_new</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">loglikelihood</span><span class="p">(</span><span class="n">prompts</span><span class="p">,</span> <span class="n">responses</span><span class="p">)</span>          <span class="c1"># (N*G,)</span>
+
+    <span class="n">lens</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">],</span>
+                        <span class="n">device</span><span class="o">=</span><span class="n">lp_new</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">lp_new</span> <span class="o">-</span> <span class="n">lp_old</span><span class="p">)</span> <span class="o">/</span> <span class="n">lens</span><span class="p">)</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="n">adv</span><span class="p">,</span>
+                      <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">clip_eps</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">clip_eps</span><span class="p">)</span> <span class="o">*</span> <span class="n">adv</span><span class="p">)</span>
+
+    <span class="c1"># token‑level log‑probabilities</span>
+    <span class="n">token_logp</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">token_logprobs</span><span class="p">(</span><span class="n">prompts</span><span class="p">,</span> <span class="n">responses</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">repeat_interleave</span><span class="p">(</span><span class="n">lens</span><span class="p">)</span> <span class="o">*</span> <span class="n">token_logp</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="empirical-highlights-and-knobs">
+<h2>Empirical Highlights and Knobs<a class="headerlink" href="#empirical-highlights-and-knobs" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hyper‑parameter</p></th>
+<th class="head"><p>Typical GSPO range</p></th>
+<th class="head"><p>Reason</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Group size G</strong></p></td>
+<td><p>2–8 (4 sweet‑spot)</p></td>
+<td><p>Sharper relative reward without VRAM blow‑up</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Clip ε</strong></p></td>
+<td><p>0.2–0.5</p></td>
+<td><p>Sequence ratios are tighter; wider clip prevents under‑training</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Learning rate</strong></p></td>
+<td><p>5 e‑6 – 2 e‑5</p></td>
+<td><p>Variance is lower, allowing higher LR</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Batch size</strong></p></td>
+<td><p>2 000–4 000 sequences</p></td>
+<td><p>GSPO robust to stale batches; decouple roll‑out &amp; update</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>MoE routing replay</strong></p></td>
+<td><p>Disable</p></td>
+<td><p>Sequence weight already stabilises experts</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>Training speed:</strong> Qwen‑3 30B hits the same math benchmark <strong>1.6 × faster</strong> than GRPO.</p></li>
+<li><p><strong>Stability:</strong> 500 K RL steps on 64‑expert MoE models show <strong>zero collapses</strong> (vs several with GRPO).</p></li>
+<li><p><strong>Throughput:</strong> Fewer forward passes and no routing caches reduce GPU memory by ~10 %.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="cases-where-it-might-not-help">
+<h2>Cases where it might not help<a class="headerlink" href="#cases-where-it-might-not-help" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Tasks with <strong>token‑level rewards</strong> (e.g. real‑time ASR).</p></li>
+<li><p><strong>Ultra‑short</strong> outputs (&lt; 5 tokens) where variance gains vanish.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="hugging-face-trl-quickstart-gspo">
+<h2>Hugging Face TRL Quick‑start (GSPO)<a class="headerlink" href="#hugging-face-trl-quickstart-gspo" title="Link to this heading">#</a></h2>
+<p>Using the exact same GRPO script along with <code class="docutils literal notranslate"><span class="pre">importance_sampling_level</span></code> flag set as <strong>sequence</strong> flips the training algo to GSPO.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">trl</span><span class="w"> </span><span class="kn">import</span> <span class="n">GRPOConfig</span><span class="p">,</span> <span class="n">GRPOTrainer</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;SmallDoge/SmallThoughts&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">reward_func</span><span class="p">(</span><span class="n">completions</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">gspo_cfg</span> <span class="o">=</span> <span class="n">GRPOConfig</span><span class="p">(</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;Qwen2-0.5B-GSPO&quot;</span><span class="p">,</span>
+    <span class="n">importance_sampling_level</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span>   <span class="c1"># the GSPO switch</span>
+    <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+    <span class="n">group_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">GRPOTrainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;Qwen/Qwen2-0.5B-Instruct&quot;</span><span class="p">,</span>
+    <span class="n">reward_funcs</span><span class="o">=</span><span class="n">reward_func</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">gspo_cfg</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="grpo_implement.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GRPO: Huggingface Implementation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="mcp_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Model Context Protocol (MCP): the <em>USB‑C</em> of AI Context</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-ppo-to-grpo-what-broke">From PPO to GRPO : what broke?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gspo-v-s-grpo">GSPO v/s GRPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-skeleton">PyTorch skeleton</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-highlights-and-knobs">Empirical Highlights and Knobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cases-where-it-might-not-help">Cases where it might not help</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hugging-face-trl-quickstart-gspo">Hugging Face TRL Quick‑start (GSPO)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rahul Bajaj
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
