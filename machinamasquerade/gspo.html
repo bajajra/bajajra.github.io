@@ -414,9 +414,9 @@ document.write(`
 <blockquote>
 <div><p><em>Use exactly <strong>one</strong> importance‑sampling ratio per answer.</em></p>
 </div></blockquote>
-<p>Compute the log‑probability of the whole answer under the new and old policies, normalise by length, exponentiate, and clip <strong>once</strong>:
+<p>Compute the log‑probability of the whole answer under the new and old policies, normalise by length, exponentiate, and clip <strong>once</strong>: <br>
 $<span class="math notranslate nohighlight">\(
-\[
+[
 s_i(\theta)
   \;=\;
   \exp\!\Biggl[
@@ -427,8 +427,8 @@ s_i(\theta)
       \lvert y_i\rvert%
     }
   \Biggr]
-\]
-\)</span>$
+]
+\)</span>$ <br>
 All tokens in that answer now share the same weight.  The variance term that scaled with sequence length disappears.</p>
 <hr class="docutils" />
 <section id="from-ppo-to-grpo-what-broke">

@@ -6,9 +6,9 @@ GSPO, introduced by Qwen team at Alibaba. upgrades reward‑aligned RL by shifti
 
 > *Use exactly **one** importance‑sampling ratio per answer.*
 
-Compute the log‑probability of the whole answer under the new and old policies, normalise by length, exponentiate, and clip **once**:
+Compute the log‑probability of the whole answer under the new and old policies, normalise by length, exponentiate, and clip **once**: <br>
 $$
-\[
+[
 s_i(\theta)
   \;=\;
   \exp\!\Biggl[
@@ -19,8 +19,8 @@ s_i(\theta)
       \lvert y_i\rvert%
     }
   \Biggr]
-\]
-$$
+]
+$$ <br>
 All tokens in that answer now share the same weight.  The variance term that scaled with sequence length disappears.
 
 ---
